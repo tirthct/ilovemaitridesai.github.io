@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <title>For my baby</title>
+    <style>
+        body {
+			font-family: "Nanum Pen Script", cursive;
+			margin: 0;
+            padding: 0;
+            background-color: #f9e8e8; /* Light pink background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        #welcome-container, #question-container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #ea4c89; /* Romantic pink */
+        }
+
+        p {
+            color: #8b5e83; /* Mauve */
+        }
+
+        a {
+            display: inline-block;
+            background-color: #ff7b9c; /* Coral pink */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #ff6382;
+        }
+
+        #question-container {
+            display: none;
+        }
+
+        #question {
+            margin: 20px 0;
+            color: #ea4c89;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #8b5e83;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #ff7b9c;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6382;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome-container">
+        <h1>Hi baby!</h1>
+        <p>You know how we used to play "this or that" when we started talking? Now toh I am all yours, but I was thinking what if we do the same? I wanted to ask you something anyways.</p>
+		<p> You can click the "Ask me!" button below if you'd like to play that with me.
+		<br><br>
+        <a href="javascript:void(0);" onclick="startQuestionnaire()">Ask me!</a>
+    </div>
+
+    <div id="question-container">
+        <h1>This or that?</h1>
+        <div id="question"></div>
+		<button type="button" onclick="checkAnswer()">Submit Answer</button>
+        
+    </div>
+
+    <script>
+        function startQuestionnaire() {
+            document.getElementById('welcome-container').style.display = 'none';
+            document.getElementById('question-container').style.display = 'block';
+            showQuestion(1);
+        }
+
+        function showQuestion(questionNumber) {
+            var questions = [
+                "Of all the dates we have been to, our best date till now is?",
+                "I helped you with your heels at the brooklyn bridge.",
+                "I will always care more about",
+                "If we have a last spoon of bourne vita, who would I give that to?",
+                "What makes you happy?",
+				"Would you rather",
+				"When we have pizza,",
+				"On our wedding day, when I see you coming towards me, if I don't cry",
+				"How do you feel with me?",
+				"Would you like to be my valentine please?"
+            ];
+
+            var options = [
+                ["The Osprey", "The Olive Garden"],
+                ["True", "False"],
+                ["You", "Our baby(ies)"],
+                ["Me", "You"],
+                ["Waking up with Tirth", "Anything else"],
+				["Let me trim my beard by myself", "Help me trim my beard"],
+				["I will feed you", "You'll eat by yourself"],
+				["You'll turn around and go back", "You'll marry me anyways"],
+				["Okayish", "Happy"],
+				["Yes", "No"]
+            ];
+
+            var questionText = "Question " + questionNumber + ": " + questions[questionNumber - 1];
+
+            var optionsHTML = options[questionNumber - 1].map(function(option, index) {
+                return `<label>
+                            <input type="radio" name="answer" value="${String.fromCharCode(65 + index)}"> Option ${String.fromCharCode(65 + index)}: ${option}
+                        </label>`;
+            }).join('');
+
+            document.getElementById('question').innerHTML = questionText + optionsHTML;
+        }
+
+        function checkAnswer() {
+            var selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (selectedAnswer) {
+                var userAnswer = selectedAnswer.value;
+                var correctAnswer = "A";
+				var questionNumber = 1;
+				const question = document.getElementById('question').innerHTML;
+				if (question.includes("Question 1")) {
+					correctAnswer = "A";
+				}
+				else if (question.includes("Question 2")) {
+					correctAnswer = "A";
+					questionNumber = 2;
+				}
+				else if (question.includes("Question 3")) {
+					questionNumber = 3;
+					correctAnswer = "A";
+				}
+				else if (question.includes("Question 4")) {
+					questionNumber = 4;
+					correctAnswer = "B";
+				}
+				else if (question.includes("Question 5")) {
+					questionNumber = 5;
+					correctAnswer = "A";
+				}
+				else if (question.includes("Question 6")) {
+					questionNumber = 6;
+					correctAnswer = "B";
+				}
+				else if (question.includes("Question 7")) {
+					questionNumber = 7;
+					correctAnswer = "A";
+				}
+				else if (question.includes("Question 8")) {
+					questionNumber = 8;
+					correctAnswer = "A";
+				}
+				else if (question.includes("Question 9")) {
+					questionNumber = 9;
+					correctAnswer = "B";
+				}
+				else if (question.includes("Question 10")) {
+					questionNumber = 10;
+					correctAnswer = "A";
+				}
+                if (userAnswer === correctAnswer) {
+                    if (!question.includes("Question 10")) {
+                        showQuestion(questionNumber + 1);
+                    } else {
+                        alert("Thank you so much baby! I love you <3");
+                    }
+                } else {
+                    alert("Nooooooo!!!!");
+                }
+            } else {
+                alert("Please select an answer before submitting.");
+            }
+        }
+    </script>
+</body>
+</html>
